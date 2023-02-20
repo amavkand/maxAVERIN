@@ -3,59 +3,175 @@ using Avalonia.VisualTree;
 
 namespace UITestsForRomanNumbersCalculator
 {
-    public class UnitTest1
+    public class GUITests
     {
         [Fact]
-        public async void Test1()
+        public async void ButtonsWithRomanNumerals()
         {
             var app = AvaloniaApp.GetApp();
             var MainWindow = AvaloniaApp.GetMainWindow();
             await Task.Delay(200);
 
             string need_text = "I";
-            var button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "addI");
-            var button_clear = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "CE");
+            var button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "I");
+            var button_clear = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "CE");
             var box = MainWindow.GetVisualDescendants().OfType<TextBlock>().First();
 
             button.Command.Execute(button.CommandParameter);
             await Task.Delay(100);
             var box_text = box.Text;
-            Assert.True(box_text.Equals(need_text), "Press button 'I' but string in textBlock != 'I' ");
+            Assert.True(box_text.Equals(need_text));
 
             button_clear.Command.Execute(button_clear.CommandParameter);
-            button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "addL");
+            need_text = "V";
+            button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "V");
+            
+            button.Command.Execute(button.CommandParameter);
+            await Task.Delay(100);
+            box_text = box.Text;
+            Assert.True(box_text.Equals(need_text));
+
+            button_clear.Command.Execute(button_clear.CommandParameter);
+            need_text = "X";
+            button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "X");
+            
+            button.Command.Execute(button.CommandParameter);
+            await Task.Delay(100);
+            box_text = box.Text;
+            Assert.True(box_text.Equals(need_text));
+
+            button_clear.Command.Execute(button_clear.CommandParameter);
             need_text = "L";
+            button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "L"); 
 
             button.Command.Execute(button.CommandParameter);
             await Task.Delay(100);
             box_text = box.Text;
-            Assert.True(box_text.Equals(need_text), "Press button 'L' but string in textBlock != 'L' ");
+            Assert.True(box_text.Equals(need_text));
 
             button_clear.Command.Execute(button_clear.CommandParameter);
-            button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "addPL");
-            var button2 = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "addI");
-            need_text = "I+I";
+            need_text = "C";
+            button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "C");
 
-            button2.Command.Execute(button2.CommandParameter);
             button.Command.Execute(button.CommandParameter);
-            button2.Command.Execute(button2.CommandParameter);
-
             await Task.Delay(100);
             box_text = box.Text;
-            Assert.True(box_text.Equals(need_text), "String in textBlock != 'I+I' ");
+            Assert.True(box_text.Equals(need_text));
 
             button_clear.Command.Execute(button_clear.CommandParameter);
-            button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "addMU");
-            button2 = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "addX");
-            need_text = "X*X";
+            need_text = "D";
+            button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "D");
 
-            button2.Command.Execute(button2.CommandParameter);
             button.Command.Execute(button.CommandParameter);
-            button2.Command.Execute(button2.CommandParameter);
+            await Task.Delay(100);
+            box_text = box.Text;
+            Assert.True(box_text.Equals(need_text));
+
+            button_clear.Command.Execute(button_clear.CommandParameter);
+            need_text = "M";
+            button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "M");
+
+            button.Command.Execute(button.CommandParameter);
+            await Task.Delay(100);
+            box_text = box.Text;
+            Assert.True(box_text.Equals(need_text));
+            button_clear.Command.Execute(button_clear.CommandParameter);
+        }
+
+        [Fact]
+
+        public async void CalculationsWithRomanNumerals()
+        {
+            var app = AvaloniaApp.GetApp();
+            var MainWindow = AvaloniaApp.GetMainWindow();
+            await Task.Delay(200);
+
+            string need_text = "I+I";
+            var button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "I");
+            var buttonCal = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "+");
+            var button_clear = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "CE");
+            var box = MainWindow.GetVisualDescendants().OfType<TextBlock>().First();
+
+            button.Command.Execute(button.CommandParameter);
+            buttonCal.Command.Execute(buttonCal.CommandParameter);
+            button.Command.Execute(button.CommandParameter);
+
+            await Task.Delay(100);
+            var box_text = box.Text;
+            Assert.True(box_text.Equals(need_text));
+
+            button_clear.Command.Execute(button_clear.CommandParameter);
+            need_text = "I-I";
+            buttonCal = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "-");
+
+            button.Command.Execute(button.CommandParameter);
+            buttonCal.Command.Execute(buttonCal.CommandParameter);
+            button.Command.Execute(button.CommandParameter);
 
             await Task.Delay(100);
             box_text = box.Text;
-            Assert.True(box_text.Equals(need_text), "String in textBlock != 'X*X' ");
+            Assert.True(box_text.Equals(need_text));
+
+            button_clear.Command.Execute(button_clear.CommandParameter);
+            need_text = "I*I";
+            buttonCal = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "*");
+
+            button.Command.Execute(button.CommandParameter);
+            buttonCal.Command.Execute(buttonCal.CommandParameter);
+            button.Command.Execute(button.CommandParameter);
+
+            await Task.Delay(100);
+            box_text = box.Text;
+            Assert.True(box_text.Equals(need_text));
+
+            button_clear.Command.Execute(button_clear.CommandParameter);
+            need_text = "I/I";
+            buttonCal = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "/");
+
+            button.Command.Execute(button.CommandParameter);
+            buttonCal.Command.Execute(buttonCal.CommandParameter);
+            button.Command.Execute(button.CommandParameter);
+
+            await Task.Delay(100);
+            box_text = box.Text;
+            Assert.True(box_text.Equals(need_text));
+            button_clear.Command.Execute(button_clear.CommandParameter);
+        }
+
+        [Fact]
+        public async void GoingBeyondTheRangeOfValues()
+        {
+            var app = AvaloniaApp.GetApp();
+            var MainWindow = AvaloniaApp.GetMainWindow();
+            await Task.Delay(200);
+
+            string need_text = "#ERROR";
+            var button = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "C");
+            var buttonCal = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "-");
+            var button_clear = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "CE");
+            var buttonEqually = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "=");
+            var box = MainWindow.GetVisualDescendants().OfType<TextBlock>().First();
+
+            button.Command.Execute(button.CommandParameter);
+            buttonCal.Command.Execute(buttonCal.CommandParameter);
+            button.Command.Execute(button.CommandParameter);
+            buttonEqually.Command.Execute(buttonEqually.CommandParameter);
+
+            await Task.Delay(100);
+            var box_text = box.Text;
+            Assert.True(box_text.Equals(need_text));
+
+            button_clear.Command.Execute(button_clear.CommandParameter);
+            buttonCal = MainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Content == "*");
+
+            button.Command.Execute(button.CommandParameter);
+            buttonCal.Command.Execute(buttonCal.CommandParameter);
+            button.Command.Execute(button.CommandParameter);
+            buttonEqually.Command.Execute(buttonEqually.CommandParameter);
+
+            await Task.Delay(100);
+            box_text = box.Text;
+            Assert.True(box_text.Equals(need_text));
         }
     }
 }

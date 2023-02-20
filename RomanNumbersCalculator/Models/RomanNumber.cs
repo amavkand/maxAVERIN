@@ -8,7 +8,6 @@ namespace RomanNumbersCalculator.Models
 {
     public class RomanNumber
     {
-        private ushort number = 1;
         protected int romanNumber1, romanNumber2, result;
         public RomanNumber()
         {
